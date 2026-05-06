@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Santa Ponsa Femenino</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:white;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+header img{
+    height:55px;
+}
+
+/* NAV */
+nav{
+    display:flex;
+    gap:45px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#9333ea;
+}
+
+/* USER */
+#user{
+    font-weight:700;
+    color:#9333ea;
+}
+
+/* HERO */
+.hero{
+    height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    position:relative;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    width:800px;
+    height:800px;
+    background:linear-gradient(135deg,#e9d5ff,#c084fc,#a855f7);
+    border-radius:50%;
+    top:-250px;
+    left:-250px;
+    z-index:0;
+    opacity:0.9;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:65px;
+    font-weight:800;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:20px;
+    color:#555;
+}
+
+#welcome{
+    margin-top:30px;
+    font-size:28px;
+    color:#9333ea;
+    font-weight:700;
+}
+
+/* SECCIONES */
+section{
+    padding:80px 60px;
+    text-align:center;
+}
+
+h2{
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+/* 🔥 CATEGORÍAS TIPO APP */
+.categories-app{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    max-width:800px;
+    margin:0 auto;
+}
+
+.cat{
+    background:linear-gradient(145deg,#ffffff,#f7f0ff);
+    padding:22px 25px;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    cursor:pointer;
+    transition:0.3s;
+    border-left:6px solid #9333ea;
+    text-align:left;
+}
+
+.cat h3{
+    margin:0;
+    font-size:20px;
+    font-weight:800;
+}
+
+.cat p{
+    margin-top:5px;
+    font-size:14px;
+    color:#666;
+}
+
+.cat:hover{
+    transform:translateX(8px);
+    box-shadow:0 12px 30px rgba(147,51,234,0.25);
+}
+
+/* EVENTS */
+.event{
+    background:#f3e8ff;
+    padding:20px;
+    margin:10px 0;
+    border-radius:15px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.event:hover{
+    transform:scale(1.03);
+}
+
+/* NEWS SCROLL */
+.news-scroll{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    padding:10px 5px;
+    scroll-snap-type:x mandatory;
+}
+
+.news-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.news-card{
+    min-width:260px;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    flex-shrink:0;
+    scroll-snap-align:start;
+    transition:0.3s;
+}
+
+.news-card:hover{
+    transform:scale(1.05);
+}
+
+.news-card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+}
+
+.news-card p{
+    padding:15px;
+    font-weight:700;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+    nav{
+        position:absolute;
+        top:80px;
+        right:20px;
+        background:white;
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        display:none;
+        border-radius:15px;
+    }
+
+    nav.active{
+        display:flex;
+    }
+
+    .hamburger{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+}
+
+.hamburger{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <img src="Logoclub.png">
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav-links">
+        <a href="#">Club</a>
+        <a href="#">Historia</a>
+        <a href="#">Equipos</a>
+        <a href="#">Contacto</a>
+    </nav>
+
+    <div id="user"></div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>Santa Ponsa Femenino</h1>
+        <p>Pasión, talento y fútbol femenino</p>
+
+        <div id="welcome"></div>
+
+    </div>
+
+</section>
+
+<!-- CATEGORÍAS NUEVAS -->
+<section>
+    <h2>Categorías del Club</h2>
+
+    <div class="categories-app">
+
+        <div class="cat" onclick="location.href='prebenjamin.html'">
+    <h3>Prebenjamín</h3>
+    <p>Formación inicial</p>
+</div>
+
+        <div class="cat" onclick="location.href='benjamin.html'">
+            <h3>Benjamín</h3>
+            <p>Iniciación competitiva</p>
+        </div>
+
+        <div class="cat" onclick="location.href='alevin.html'">
+            <h3>Alevín</h3>
+            <p>Desarrollo técnico</p>
+        </div>
+
+        <div class="cat" onclick="location.href='infantil.html'">
+            <h3>Infantil</h3>
+            <p>Etapa de crecimiento</p>
+        </div>
+
+        <div class="cat" onclick="location.href='cadete.html'">
+            <h3>Cadete</h3>
+            <p>Competición avanzada</p>
+        </div>
+
+        <div class="cat" onclick="location.href='juvenil.html'">
+            <h3>Juvenil</h3>
+            <p>Alto rendimiento</p>
+        </div>
+
+        <div class="cat" onclick="location.href='senior.html'">
+            <h3>Senior</h3>
+            <p>Equipo principal</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- EVENTOS -->
+<section>
+    <h2>Próximos Eventos</h2>
+
+    <div class="event">10 Mayo - Partido Liga</div>
+    <div class="event">17 Mayo - Torneo</div>
+    <div class="event">25 Mayo - Captación</div>
+</section>
+
+<!-- NOTICIAS -->
+<section>
+    <h2>Noticias</h2>
+
+    <div class="news-scroll">
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d">
+            <p>Nueva equipación oficial</p>
+        </div>
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2">
+            <p>Victoria importante</p>
+        </div>
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20">
+            <p>Nuevas jugadoras</p>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+let user = localStorage.getItem("user");
+
+if(user){
+    document.getElementById("user").innerText = user;
+    document.getElementById("welcome").innerText = "Bienvenido/a " + user;
+}
+
+function toggleMenu(){
+    document.getElementById("nav-links").classList.toggle("active");
+}
+
+</script>
+
+</body>
+</html>

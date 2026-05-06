@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prebenjamín</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Poppins;
+    background:#f3e8ff;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 25px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+header h3{
+    margin:0;
+    font-weight:800;
+    color:#9333ea;
+}
+
+button{
+    padding:8px 14px;
+    border:none;
+    border-radius:15px;
+    background:#9333ea;
+    color:white;
+    cursor:pointer;
+}
+
+h1{
+    text-align:center;
+    margin:30px 0;
+    font-size:38px;
+    font-weight:800;
+}
+
+.table{
+    max-width:700px;
+    margin:30px auto;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 20px;
+    border-bottom:1px solid #eee;
+}
+
+.head{
+    background:#9333ea;
+    color:white;
+    font-weight:700;
+}
+
+.row span{
+    width:33%;
+    text-align:center;
+}
+
+.loading{
+    text-align:center;
+    padding:20px;
+    color:#666;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h3>Prebenjamín</h3>
+    <button onclick="location.href='home.html'">Volver</button>
+</header>
+
+<h1>Clasificación Liga</h1>
+
+<div id="table" class="table">
+    <div class="loading">Cargando datos...</div>
+</div>
+
+<script>
+
+const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5vTKhCnEoTacQdpcmWgqiiBGrVZmyQBpG59Pdg1ipAT2nAYuFynAlfa9i_ICdd9Kt2UvHlbC1JCE4/pub?gid=0&single=true&output=csv";
+
+async function loadTable(){
+
+    try{
+
+        console.log("🔄 Intentando cargar CSV...");
+
+        const res = await fetch(URL);
+
+        // 🔥 DEBUG IMPORTANTE
+        console.log("📡 RESPONSE:", res);
+
+        const text = await res.text();
+
+        console.log("📄 CSV RAW:");
+        console.log(text);
+
+        if(!text || text.length === 0){
+            throw new Error("CSV vacío");
+        }
+
+        const lines = text.trim().split("\n");
+
+        let teams = [];
+
+        for(let i = 1; i < lines.length; i++){
+
+            const cols = lines[i].split(/[;,]/);
+
+            console.log("➡ fila:", cols);
+
+            if(cols.length < 3) continue;
+
+            teams.push({
+                name: cols[0].trim(),
+                pj: parseInt(cols[1]) || 0,
+                pt: parseInt(cols[2]) || 0
+            });
+        }
+
+        teams.sort((a,b)=>b.pt - a.pt);
+
+        let html = `
+            <div class="row head">
+                <span>Equipo</span>
+                <span>PJ</span>
+                <span>PT</span>
+            </div>
+        `;
+
+        teams.forEach(t=>{
+            html += `
+                <div class="row">
+                    <span>${t.name}</span>
+                    <span>${t.pj}</span>
+                    <span>${t.pt}</span>
+                </div>
+            `;
+        });
+
+        document.getElementById("table").innerHTML = html;
+
+    } catch(err){
+
+        console.error("❌ ERROR:", err);
+
+        document.getElementById("table").innerHTML =
+        "<div class='loading'>Error cargando datos (mira consola F12)</div>";
+    }
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>
