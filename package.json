@@ -1,0 +1,11 @@
+{
+  "name": "aerovia-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Persistent airline-management MVP vertical slice",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=20" }
+}
